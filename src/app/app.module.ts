@@ -9,6 +9,7 @@ import { PostPageComponent } from './post-page/post-page.component';
 import { AuthorizationPageComponent } from './authorization-page/authorization-page.component';
 import { CreatePageComponent } from './create-page/create-page.component';
 import { EditPageComponent } from './edit-page/edit-page.component';
+import { PostComponent } from './shared/components/post/post.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { EditPageComponent } from './edit-page/edit-page.component';
     PostPageComponent,
     AuthorizationPageComponent,
     CreatePageComponent,
-    EditPageComponent
+    EditPageComponent,
+    PostComponent
   ],
   imports: [
     BrowserModule,
