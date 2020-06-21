@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "angular-twitter"
+    }
+  },
+  "defaultProject": "angular-twitter",
+  "cli": {
+    "analytics": false
+  }
 }
