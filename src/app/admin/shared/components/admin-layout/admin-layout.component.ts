@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AdminRoutingModule} from '../../../admin-routing.module';
 import {Router} from '@angular/router';
+import {AuthService} from '../../../../shared/service/auth.service';
 
 @Component({
   selector: 'app-admin-layout',
@@ -9,7 +10,10 @@ import {Router} from '@angular/router';
 })
 export class AdminLayoutComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private auth: AuthService
+  ) { }
 
   ngOnInit(): void {
 
@@ -17,6 +21,7 @@ export class AdminLayoutComponent implements OnInit {
 
   logout(event: Event  ) {
     event.preventDefault();
+    this.auth.logout();
     this.router.navigate(['/admin', 'login']);
   }
 }
