@@ -2,14 +2,17 @@
   <h1>Angular twitter</h1>
 
   <ul >
-    <li routerLinkActive="active">
-      <a [routerLink]="['/']">Home</a>
+    <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+      <a [routerLink]="['/home']">Home</a>
     </li>
     <li routerLinkActive="active" *ngIf="auth.isAuthenticated()">
       <a [routerLink]="['/create']">Create</a>
     </li>
     <li routerLinkActive="active" *ngIf="auth.isAuthenticated()">
       <a href="#" (click)="logout($event)">Logout</a>
+    </li>
+    <li routerLinkActive="active" *ngIf="!auth.isAuthenticated()">
+      <a [routerLink]="['/authorization']">Login</a>
     </li>
   </ul>
 </nav>
