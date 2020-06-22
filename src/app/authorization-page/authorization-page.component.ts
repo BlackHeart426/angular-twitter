@@ -26,6 +26,8 @@ export class AuthorizationPageComponent implements OnInit {
     this.route.queryParams.subscribe((params: Params) => {
       if (params.loginFail) {
         this.message = 'Please, log in'
+      } else if(params.authFailed) {
+        this.message = 'Session finished. Please log in again'
       }
     })
 
