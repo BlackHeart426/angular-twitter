@@ -1,6 +1,20 @@
-<nav class="navbar main">
+<nav class="navbar bg-primary">
   <h1>Angular twitter</h1>
+
+  <ul >
+    <li routerLinkActive="active">
+      <a [routerLink]="['/']">Home</a>
+    </li>
+    <li routerLinkActive="active" *ngIf="auth.isAuthenticated()">
+      <a [routerLink]="['/create']">Create</a>
+    </li>
+    <li routerLinkActive="active" *ngIf="auth.isAuthenticated()">
+      <a href="#" (click)="logout($event)">Logout</a>
+    </li>
+  </ul>
 </nav>
+
+
 
 <div class="container">
   <router-outlet></router-outlet>

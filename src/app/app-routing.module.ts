@@ -8,6 +8,7 @@ import {AuthorizationPageComponent} from './authorization-page/authorization-pag
 import {CreatePageComponent} from './create-page/create-page.component';
 import {EditPageComponent} from './edit-page/edit-page.component';
 import {AuthGuard} from './shared/service/auth.guard';
+import {ErrorPageComponent} from './error-page/error-page.component';
 
 
 const routes: Routes = [
@@ -18,7 +19,9 @@ const routes: Routes = [
       {path: 'post/:id', component: PostPageComponent},
       {path: 'authorization', component: AuthorizationPageComponent},
       {path: 'create', component: CreatePageComponent, canActivate: [AuthGuard]},
-      {path: 'post/:id/edit', component: EditPageComponent, canActivate: [AuthGuard]}
+      {path: 'post/:id/edit', component: EditPageComponent, canActivate: [AuthGuard]},
+      {path: 'error', component: ErrorPageComponent},
+      {path: '**', redirectTo: '/error'}
     ]
   },
   {

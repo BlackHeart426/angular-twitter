@@ -14,6 +14,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {SharedModule} from './shared/shared.module';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {AuthInterceptor} from './shared/service/auth.interceptor';
+import { ErrorPageComponent } from './error-page/error-page.component';
 
 const INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -30,7 +31,8 @@ const INTERCEPTOR_PROVIDER: Provider = {
     AuthorizationPageComponent,
     CreatePageComponent,
     EditPageComponent,
-    PostComponent
+    PostComponent,
+    ErrorPageComponent
   ],
   imports: [
     BrowserModule,
