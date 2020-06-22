@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {User} from '../admin/shared/components/interfaces';
+import {ActivatedRoute, Params, Router} from '@angular/router';
+import {AuthService} from '../shared/service/auth.service';
 
 @Component({
   selector: 'app-authorization-page',
@@ -10,10 +12,23 @@ import {User} from '../admin/shared/components/interfaces';
 export class AuthorizationPageComponent implements OnInit {
 
   form: FormGroup
+  submitted = false;
+  message: string
 
-  constructor() { }
+  constructor(
+    public auth: AuthService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
+
+    this.route.queryParams.subscribe((params: Params) => {
+      if (params.loginFail) {
+        this.message = 'Please, log in'
+      }
+    })
+
     this.form = new FormGroup({
       email: new FormControl(null, [
         Validators.required,
@@ -31,11 +46,20 @@ export class AuthorizationPageComponent implements OnInit {
       return
     }
 
+    this.submitted = true
+
     const user: User = {
       email: this.form.get('email').value,
       password: this.form.get('password').value,
     }
 
+    this.auth.login(user).subscribe(() => {
+      this.form.reset()
+      this.router.navigate(['/home'])
+      this.submitted = false
+    }, () => {
+      this.submitted = false
+    })
     console.log(user);
   }
 }

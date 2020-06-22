@@ -1,14 +1,18 @@
 import {Injectable} from '@angular/core';
 import {FbAuthResponse, User} from '../../admin/shared/components/interfaces';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {Observable, Subject, throwError} from 'rxjs';
 import {environment} from '../../../environments/environment';
-import {tap} from 'rxjs/operators';
+import {catchError, tap} from 'rxjs/operators';
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
 
-  constructor(private http: HttpClient) {
+  public error$: Subject<string> = new Subject<string>()
+
+  constructor(
+    private http: HttpClient
+  ) {
   }
 
   get token(): string {
@@ -24,7 +28,8 @@ export class AuthService {
     user.returnSecureToken = true
     return this.http.post(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.apkKey}`, user)
       .pipe(
-        tap(this.setToken)
+        tap(this.setToken),
+        catchError(this.handleError.bind(this)) // TODO why bind???
       )
   }
 
@@ -32,13 +37,32 @@ export class AuthService {
     this.setToken(null)
   }
 
-  isAuthencated(): boolean {
+  isAuthenticated(): boolean {
     return !!this.token
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    const {message} = error.error.error
+
+    switch (message) {
+      case 'INVALID_EMAIL':
+        this.error$.next('Неверный email')
+        break
+      case 'INVALID_PASSWORD':
+        this.error$.next('Неверный пароль')
+        break
+      case 'EMAIL_NOT_FOUND':
+        this.error$.next('Email не найден')
+        break
+    }
+
+    return throwError(error)
   }
 
   private setToken(response: FbAuthResponse | null) {
     if (response){
-      const expDate = new Date(new Date().getTime() + +response.experesIn * 1000)
+      const expDate = new Date(new Date().getTime() + +response.expiresIn * 1000)
+      console.log(expDate);
       localStorage.setItem('fb-token', response.idToken)
       localStorage.setItem('fb-token-exp', expDate.toString())
       console.log(response);

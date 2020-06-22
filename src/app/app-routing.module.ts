@@ -7,6 +7,7 @@ import {DashboardPageComponent} from './admin/dashboard-page/dashboard-page.comp
 import {AuthorizationPageComponent} from './authorization-page/authorization-page.component';
 import {CreatePageComponent} from './create-page/create-page.component';
 import {EditPageComponent} from './edit-page/edit-page.component';
+import {AuthGuard} from './shared/service/auth.guard';
 
 
 const routes: Routes = [
@@ -16,8 +17,8 @@ const routes: Routes = [
       {path: 'home', component: HomePageComponent},
       {path: 'post/:id', component: PostPageComponent},
       {path: 'authorization', component: AuthorizationPageComponent},
-      {path: 'create', component: CreatePageComponent},
-      {path: 'post/:id/edit', component: EditPageComponent}
+      {path: 'create', component: CreatePageComponent, canActivate: [AuthGuard]},
+      {path: 'post/:id/edit', component: EditPageComponent, canActivate: [AuthGuard]}
     ]
   },
   {
