@@ -3,6 +3,8 @@ import {Form, FormControl, FormGroup, Validators} from '@angular/forms';
 import {User} from '../shared/components/interfaces';
 import {AuthService} from '../../shared/service/auth.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
+import {AlertComponent} from '../shared/components/alert/alert.component';
+import {AlertService} from '../service/alert.service';
 
 @Component({
   selector: 'app-login-page',
@@ -18,7 +20,8 @@ export class LoginPageComponent implements OnInit {
   constructor(
     public auth: AuthService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private alertService: AlertService
   ) { }
 
   ngOnInit(): void {
@@ -52,6 +55,7 @@ export class LoginPageComponent implements OnInit {
     }
 
     this.auth.login(user).subscribe(() => {
+      this.alertService.success('Auth is success')
       this.form.reset()
       this.router.navigate(['/admin', 'dashboard'])
       this.submitted = false

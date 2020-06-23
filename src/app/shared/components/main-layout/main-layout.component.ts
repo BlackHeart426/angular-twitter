@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../service/auth.service';
+import {Subject} from 'rxjs';
 
 @Component({
   selector: 'app-main-layout',

@@ -1,3 +1,4 @@
+<app-alert></app-alert>
 <nav class="navbar bg-primary">
   <h1>
     <a routerLink="/">Admin Panel</a>
@@ -5,14 +6,13 @@
 
   <ul *ngIf="auth.isAuthenticated()">
     <li routerLinkActive="active">
-      <a [routerLink]="['/admin', 'dashboard']">Home</a>
+      <a [routerLink]="['/admin', 'dashboard']">Dashboard</a>
     </li>
     <li routerLinkActive="active">
       <a href="#" (click)="logout($event)">Logout</a>
     </li>
   </ul>
 </nav>
-
 <div class="container">
   <router-outlet>  </router-outlet>
 </div>

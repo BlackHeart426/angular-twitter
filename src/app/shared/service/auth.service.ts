@@ -11,7 +11,7 @@ export class AuthService {
   public error$: Subject<string> = new Subject<string>()
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
   ) {
   }
 
@@ -62,10 +62,8 @@ export class AuthService {
   private setToken(response: FbAuthResponse | null) {
     if (response){
       const expDate = new Date(new Date().getTime() + +response.expiresIn * 1000)
-      console.log(expDate);
       localStorage.setItem('fb-token', response.idToken)
       localStorage.setItem('fb-token-exp', expDate.toString())
-      console.log(response);
     } else {
       localStorage.clear()
     }

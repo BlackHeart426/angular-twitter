@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {PostsService} from '../shared/service/posts.service';
 import {Post} from '../admin/shared/components/interfaces';
 import {Observable, Subscription} from 'rxjs';
