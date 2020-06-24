@@ -17,6 +17,8 @@ import {AuthInterceptor} from './shared/service/auth.interceptor';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import {SelectDirective} from './shared/directives/select.directive';
 import {IfnotDirective} from './shared/directives/ifnot.directive';
+import { ModalComponent } from './modal/modal.component';
+import {RefDirective} from './shared/directives/ref.directive';
 
 const INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -36,7 +38,9 @@ const INTERCEPTOR_PROVIDER: Provider = {
     PostComponent,
     ErrorPageComponent,
     SelectDirective,
-    IfnotDirective
+    IfnotDirective,
+    ModalComponent,
+    RefDirective
   ],
   imports: [
     BrowserModule,
@@ -44,6 +48,7 @@ const INTERCEPTOR_PROVIDER: Provider = {
     ReactiveFormsModule,
     SharedModule,
   ],
+  exports: [ModalComponent],
   providers: [INTERCEPTOR_PROVIDER],
   bootstrap: [AppComponent]
 })
